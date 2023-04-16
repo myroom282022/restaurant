@@ -64,9 +64,19 @@ class RegisterController extends BaseController
         } 
     }
     public function getUserDetails($id,Request $request){
-      return   $token = $request->bearerToken();
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
         $success=User::where('id',$id)->first();
-        return $this->sendResponse($success, 'User register successfully.');
+        return $this->sendResponse($success, 'User Details successfully.');
+
+    }
+    public function getAllUserDetails(Request $request){
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+        $success=User::All();
+        return $this->sendResponse($success, 'get all User Details successfully.');
 
     }
 }
