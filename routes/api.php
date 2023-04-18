@@ -25,4 +25,6 @@ Route::middleware('auth:api')->group( function () {
     Route::resource('products', ProductController::class);
     Route::post('get-user-Details/{id}', [RegisterController::class, 'getUserDetails']);
     Route::post('get-user-Details', [RegisterController::class, 'getAllUserDetails']);
+    Route::post('user-profile', [RegisterController::class, 'profile']);
+    Route::post('logout', [RegisterController::class, 'logout']);
 });
