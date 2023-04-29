@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\ShareTableController;
+use App\Http\Controllers\API\PaymentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,8 +25,21 @@ Route::post('login', [RegisterController::class, 'login']);
      
 Route::middleware('auth:api')->group( function () {
     Route::resource('products', ProductController::class);
-    Route::post('get-user-Details/{id}', [RegisterController::class, 'getUserDetails']);
-    Route::post('get-user-Details', [RegisterController::class, 'getAllUserDetails']);
-    Route::post('user-profile', [RegisterController::class, 'profile']);
-    Route::post('logout', [RegisterController::class, 'logout']);
+
+    Route::controller(RegisterController::class)->group(function() {
+        Route::post('get-user-Details/{id}', 'getUserDetails');
+        Route::post('get-user-Details', 'getAllUserDetails');
+        Route::post('user-profile', 'profile');
+        Route::post('logout', 'logout');
+    });
+    Route::controller(ShareTableController::class)->group(function() {
+        Route::post('share-table-create', 'shareTableCreate');
+        Route::post('getall-table-list', 'getAll');
+        Route::post('single-table-list/{id}', 'getAllOneTable');
+    });
+    Route::controller(PaymentController::class)->group(function(){
+        Route::post('payment-create', 'paymentCreate')->name('payment-create');
+        Route::get('payment-list', 'paymentList')->name('payment-list');
+    });
 });
+
