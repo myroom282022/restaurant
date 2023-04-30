@@ -41,5 +41,6 @@ Route::middleware('auth:api')->group( function () {
         Route::post('payment-create', 'paymentCreate')->name('payment-create');
         Route::get('payment-list', 'paymentList')->name('payment-list');
     });
+    
 });
 
