@@ -12,10 +12,11 @@ class Payment extends Model
         'user_id',
         'translation_id',
         'amount',
-        'number',
-        'exp_month',
-        'exp_year',
-        'cvc',
+        'card_number',
+        'currency',
+        'payment_type',
+        'brand',
+        'receipt_url',
         'status',
     ];
 }

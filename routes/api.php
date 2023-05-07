@@ -17,9 +17,31 @@ use App\Http\Controllers\API\PaymentController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// commond route----------------------------------------------
+Route::get('/cleareverything', function () {
+    $clearcache = Artisan::call('cache:clear');
+    echo "Cache cleared<br>";
+
+    $clearview = Artisan::call('view:clear');
+    echo "View cleared<br>";
+
+    $clearconfig = Artisan::call('config:cache');
+    $clearconfig = Artisan::call('migrate --force');
+    echo "Config cleared<br>";
+
 });
+Route::get('/clear-cache', function() {
+    $run = Artisan::call('config:clear');
+    $run = Artisan::call('cache:clear');
+    $run = Artisan::call('config:cache');
+    $run = Artisan::call('route:clear');
+    $run = Artisan::call('view:clear');
+    $run = Artisan::call('migrate');
+    $run = Artisan::call('optimize:clear');
+    return 'FINISHED';  
+});
+// commond route----------------------------------------------
+
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
      
@@ -39,8 +61,11 @@ Route::middleware('auth:api')->group( function () {
     });
     Route::controller(PaymentController::class)->group(function(){
         Route::post('payment-create', 'paymentCreate')->name('payment-create');
-        Route::get('payment-list', 'paymentList')->name('payment-list');
+        Route::get('user-payment-list', 'getPaymentUserList')->name('user-payment-list');
+        Route::get('get-payment-list', 'getPaymentList')->name('get-payment-list');
     });
     
+
 });
 
+ 

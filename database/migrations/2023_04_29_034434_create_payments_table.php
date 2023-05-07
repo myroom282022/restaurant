@@ -16,10 +16,11 @@ return new class extends Migration
             $table->integer('user_id')->nullable();
             $table->string('translation_id')->nullable();
             $table->boolean('amount')->nullable();
-            $table->string('number')->nullable();
-            $table->string('exp_month')->nullable();
-            $table->string('exp_year')->nullable();
-            $table->string('cvc')->nullable();
+            $table->string('card_number')->nullable();
+            $table->string('currency')->nullable();
+            $table->string('payment_type')->nullable();
+            $table->string('brand')->nullable();
+            $table->string('receipt_url')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });
